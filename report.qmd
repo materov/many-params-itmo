@@ -1,0 +1,57 @@
+---
+title: "Новый документ"
+author: "И. О. Фамилия"
+format: html
+lang: ru
+
+# обязательно!
+# иначе графики будут дублироваться в отчетах
+execute:
+  cache: false
+
+params:
+  species: Gentoo
+---
+
+## Новый параграф
+
+Отчет для `r params$species`.
+
+```{r}
+palmerpenguins::penguins |>
+  dplyr::filter(species == params$species) |>
+  nrow()
+```
+
+```{r}
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(palmerpenguins)
+library(magrittr)
+
+data_to_plot <- penguins |>
+  na.omit() |>
+  dplyr::filter(species == params$species)
+```
+
+```{r}
+#| message: false
+#| warning: false
+
+data_to_plot |>
+  ggplot(aes(x = body_mass_g,
+             y = flipper_length_mm)) +
+  # geom_point(data = palmerpenguins::penguins |>
+  #              drop_na(),
+  #            size = 4, color = "white", 
+  #            pch = 21, 
+  #            alpha = 0.8,
+  #            fill = "grey") +
+  geom_point(size = 4, color = "white", 
+             pch = 21, 
+             alpha = 0.8,
+             fill = "steelblue") +
+  theme_minimal()
+```
