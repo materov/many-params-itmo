@@ -4,17 +4,11 @@ author: "И. О. Фамилия"
 format: html
 lang: ru
 
-knitr: 
-  opts_chunk: 
-    collapse: true
-
-# обязательно!
-# иначе графики будут дублироваться в отчетах
-# execute:
-#   cache: false
-
 params:
   species: Gentoo
+
+# credits:
+# https://www.youtube.com/watch?v=KCpuUF4vi5g&ab_channel=AlbertRapp
 ---
 
 ## Новый параграф
