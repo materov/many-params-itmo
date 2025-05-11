@@ -4,10 +4,14 @@ author: "И. О. Фамилия"
 format: html
 lang: ru
 
+knitr: 
+  opts_chunk: 
+    collapse: true
+
 # обязательно!
 # иначе графики будут дублироваться в отчетах
-execute:
-  cache: false
+# execute:
+#   cache: false
 
 params:
   species: Gentoo
@@ -26,12 +30,9 @@ palmerpenguins::penguins |>
 ```{r}
 #| message: false
 #| warning: false
+#| echo: false
 
-library(tidyverse)
-library(palmerpenguins)
-library(magrittr)
-
-data_to_plot <- penguins |>
+data_to_plot <- palmerpenguins::penguins |>
   na.omit() |>
   dplyr::filter(species == params$species)
 ```
@@ -39,19 +40,21 @@ data_to_plot <- penguins |>
 ```{r}
 #| message: false
 #| warning: false
+#| echo: false
+#| cache-rebuild: true
 
 data_to_plot |>
-  ggplot(aes(x = body_mass_g,
-             y = flipper_length_mm)) +
-  # geom_point(data = palmerpenguins::penguins |>
-  #              drop_na(),
-  #            size = 4, color = "white", 
-  #            pch = 21, 
-  #            alpha = 0.8,
-  #            fill = "grey") +
-  geom_point(size = 4, color = "white", 
+  ggplot2::ggplot(ggplot2::aes(x = body_mass_g,
+                      y = flipper_length_mm)) +
+  ggplot2::geom_point(data = palmerpenguins::penguins |>
+               na.omit(),
+             size = 4, color = "white", 
+             pch = 21, 
+             alpha = 0.8,
+             fill = "grey") +
+  ggplot2::geom_point(size = 4, color = "white", 
              pch = 21, 
              alpha = 0.8,
              fill = "steelblue") +
-  theme_minimal()
+  ggplot2::theme_minimal()
 ```
